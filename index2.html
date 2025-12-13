@@ -145,14 +145,106 @@
 <body>
   <main>
     <section id="home">
-      <h1>Graphics Generator</h1>
+      <h1>Time Puzzle</h1>
     </section>
 
     <section id="content">
-      <video controls>
-          <source src="turtleclip.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-      </video>
+      <div class="content-container">
+        <div class="center-container" style="padding-top: 20px;">
+            <h1 class="w3-wide">Time Puzzle</h1>
+            <p>Unity WebGL Build</p>
+        </div>
+        <div id="unity-container" class="unity-desktop">
+          <canvas id="unity-canvas" width=960 height=600></canvas>
+          <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+              <div id="unity-progress-bar-full"></div>
+            </div>
+          </div>
+          <div id="unity-mobile-warning">
+            WebGL builds are not supported on mobile devices.
+          </div>
+          <div id="unity-footer">
+            <div id="unity-webgl-logo"></div>
+            <div id="unity-fullscreen-button"></div>
+            <div id="unity-build-title">Time</div>
+          </div>
+        </div>
+        <div class="center-container" style="padding-top: 800px;">
+          <h2 class="w3-wide">Instructions</h2>
+          <div class="card">
+              <p class="w3-justify">
+                Press 1, 2, or 3 to pick a character.<br>
+                Use the arrow keys to make the player move.<br>
+                Press the space bar when you finish moving the character.<br>
+                Press 1, 2, or 3 to pick another character.<br>
+                Watch as your last character has saved it's movements.<br>
+                Stand on the red button to open doors.<br>
+                Stand on green button to move on to the next level.<br>
+              </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/Time.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/Time.data",
+        frameworkUrl: buildUrl + "/Time.framework.js",
+        codeUrl: buildUrl + "/Time.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "NinjaCad",
+        productName: "Time",
+        productVersion: "1.0",
+      };
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var mobileWarning = document.querySelector("#unity-mobile-warning");
+
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        // Avoid draining fillrate performance on mobile devices,
+        // and default/override low DPI mode on mobile browsers.
+        config.devicePixelRatio = 1;
+        mobileWarning.style.display = "block";
+        setTimeout(() => {
+          mobileWarning.style.display = "none";
+        }, 5000);
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
   </main>
 
   <footer>
