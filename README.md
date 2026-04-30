@@ -1,4 +1,4 @@
-# Time Pages (Unity WebGL Game)
+# Playback (Unity WebGL Game)
 
 This repository contains a **Unity WebGL build** of a game (served as a static website).
 
