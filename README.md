@@ -9,7 +9,7 @@ This project is a 2D puzzle system where the player can switch between multiple 
 ## 🕹️ How to Play
 
 * Use **WASD / Arrow Keys** to move the active character
-* Press **1–4** to switch between different characters
+* Press **1–3** to switch between different characters
 * Press **Space** to reset control
 * Activate switches to open doors
 * Work with multiple characters to solve puzzles
