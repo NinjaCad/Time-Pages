@@ -1,0 +1,42 @@
+# --- System Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.app
+
+# --- Temporary/Backup Files ---
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+*.sw?
+.#*
+.#
+# [Oo]ld\ or\ .[Oo]ld/
+
+# --- IDE/Editor Temporary Files ---
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.haxelsp/
+.replay_pid*
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Cache ---
+.cache/
+.parcel-cache/
+.eslintcache
